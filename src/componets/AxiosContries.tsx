@@ -6,7 +6,11 @@ interface Country {
     name: string;
 }
 
-const CountriesList: React.FC = () => {
+interface CountriesListProps {
+    onSelectCountry: (info: Country) => void;
+}
+
+const CountriesList: React.FC<CountriesListProps> = ({ onSelectCountry }) => {
     const [countries, setCountries] = useState<Country[]>([]);
 
     useEffect(() => {
@@ -22,12 +26,17 @@ const CountriesList: React.FC = () => {
         fetchCountries();
     }, []);
 
+    const handleCountrySelect = (country: Country) => {
+        onSelectCountry(country);
+    };
+
     return (
-        <div>
-            <h1>Список стран</h1>
+        <div className="CountryList">
             <ul>
                 {countries.map((country) => (
-                    <li key={country.alpha3Code}>{country.name}</li>
+                    <li key={country.alpha3Code} onClick={() => handleCountrySelect(country)}>
+                        {country.name}
+                    </li>
                 ))}
             </ul>
         </div>
