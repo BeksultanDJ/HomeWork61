@@ -1,14 +1,28 @@
+import { useState } from 'react';
 import './App.css';
-import './componets/DisplayCountriesInformation.tsx';
-import CountriesList from "./componets/AxiosContries.tsx";
+import CountriesList from './componets/AxiosContries.tsx';
+import DisplayInfo from './componets/DisplayCountriesInformation.tsx';
 
-function App() {
-
-  return (
-    <>
-      <CountriesList />
-    </>
-  )
+interface Country {
+    alpha3Code: string;
+    name: string;
 }
 
-export default App
+function App() {
+    const [countryInfo, setCountryInfo] = useState<Country | null>(null);
+
+    const handleCountrySelect = (info: Country) => {
+        setCountryInfo(info);
+    };
+
+    return (
+        <>
+            <div className="App">
+            <CountriesList onSelectCountry={handleCountrySelect} />
+            <DisplayInfo countryInfo={countryInfo} />
+            </div>
+        </>
+    );
+}
+
+export default App;
