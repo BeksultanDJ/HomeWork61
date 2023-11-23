@@ -5,6 +5,10 @@ interface CountryInfo {
     capital: string;
     population: number;
     borders: string[];
+    flag: {
+        svg: string;
+        png: string;
+    };
 }
 
 interface DisplayInfoProps {
@@ -20,6 +24,7 @@ const DisplayInfo: React.FC<DisplayInfoProps> = ({ countryInfo }) => {
                     <p>Столица: {countryInfo.capital}</p>
                     <p>Население: {countryInfo.population}</p>
                     <p>Граничит с: {countryInfo.borders ? countryInfo.borders.join(', ') : 'Нет данных о границах'}</p>
+                    <img src={countryInfo.flag} alt={`${countryInfo.name} флаг`} />
                 </>
             ) : (
                 <p>Выберите страну</p>
